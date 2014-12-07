@@ -125,9 +125,9 @@ for file_idx=1:length(files_all)
     xlabel('Distance');
     ylabel('Power');
     title(num2str(files_all(file_idx)));
-    pause(2);
+    pause(1);
     
-    %% Exhaustive
+    %% Exhaustive: Uncomment to run exhaustive 2 distance calculation. Use it for 11 frequencies only
 %     options.n_peaks=2;
 %     options.res=0.05;
 %     options.min_val=0;
@@ -141,28 +141,19 @@ for file_idx=1:length(files_all)
 %         h1=figure; hold on; surf(d1,d1,A,'EdgeColor','none');  
 %         colormap jet
 %     end
-    %% Optimization
-    options.n_peaks=2;
-    options.res=0.05;
-    options.min_val=0;
-    options.max_val=7.5;
-    options.p_factor=p_factor;
-    
-    npaths=2;
-    h1= @(x) optim_fun_lin_distance(x,h.',lambda,options); % Change to optim_fun_lin_distance_approx if you are using 24 frequencies
-    problem=createOptimProblem('fmincon','objective',h1,'x0',ones(npaths,1),'lb',zeros(npaths,1),'ub',7.5*ones(npaths,1));
-    gs=GlobalSearch;
-    run(gs,problem)
-    %% Linear optimization
+    %% Optimization: Uncomment to run optimization
+%     options.n_peaks=2;
+%     options.res=0.05;
 %     options.min_val=0;
-%     options.max_val=5;
-%     options.alpha=max(abs(h))*0.95;
-%     d1=options.min_val:options.res:options.max_val;
-%     [v,f]=linear_optim(h,freq,options);
-%     figure; hold on; surf(d1,d1,f,'EdgeColor','none');
-%     colormap jet
-%     figure; hold on; surf(d1,d1,1./f,'EdgeColor','none');
-%     colormap jet
+%     options.max_val=7.5;
+%     options.p_factor=p_factor;
+%     
+%     npaths=2;
+%     h1= @(x) optim_fun_lin_distance(x,h.',lambda,options); % Change to optim_fun_lin_distance_approx if you are using 24 frequencies
+%     problem=createOptimProblem('fmincon','objective',h1,'x0',ones(npaths,1),'lb',zeros(npaths,1),'ub',7.5*ones(npaths,1));
+%     gs=GlobalSearch;
+%     run(gs,problem)
+
     
 end
 
